@@ -1,38 +1,79 @@
-import * as React from "react"
+import * as React from 'react';
 import {
   ChakraProvider,
   Box,
   Text,
-  Link,
+  Button,
+  Image,
+  HStack,
+  Heading,
   VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+} from '@chakra-ui/react';
+import hero from './assets/Hero Image.jpg';
+import logo from './assets/Logo.svg';
+import airbnb from './assets/Airbnb.svg';
+import booking from './assets/Booking.svg';
+import plum from './assets/Plum Guide.svg';
+import lightTheme from './theme';
+import check from './assets/Checkmark.svg';
 
 export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
+  <ChakraProvider theme={lightTheme}>
+    <HStack>
+      <Box w='55%' h='100vh' p='10%'>
+        <Box w='80%'>
+          <Image src={logo} alt='logo' marginBottom={20}></Image>
+          <Heading as='h1' size='3xl'>
+            Explore the best camps on Earth.
+          </Heading>
+          <Text marginY={6} fontSize='lg' color='blackAlpha.700'>
+            Yelpcamp is a curated list of the best camping spots on Earth.
+            Unfiltered and unbiased reviews
           </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
+          <VStack
+            h='100px'
+            alignItems='flex-start'
+            justifyContent='space-between'
+            marginBottom={6}
+            color='blackAlpha.700'
           >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
+            <HStack>
+              <Image src={check}></Image>
+              <Text>Add your own camp suggestions.</Text>
+            </HStack>
+            <HStack>
+              <Image src={check}></Image>
+              <Text>Leave reviews and experiences.</Text>
+            </HStack>
+            <HStack>
+              <Image src={check}></Image>
+              <Text>See locations for all camps.</Text>
+            </HStack>
+          </VStack>
+
+          <Button
+            backgroundColor='blackAlpha.900'
+            color='white'
+            colorScheme='blackAlpha'
+            variant='solid'
+            paddingY={6}
+            marginY={2}
+          >
+            View Campgrounds
+          </Button>
+          <Text marginTop={6} color='blackAlpha.700'>
+            Partnered with:
+          </Text>
+          <HStack>
+            <Image src={airbnb}></Image>
+            <Image src={booking}></Image>
+            <Image src={plum}></Image>
+          </HStack>
+        </Box>
+      </Box>
+      <Box w='45%' h='100vh' m={0}>
+        <Image src={hero} objectFit='cover' w='100%' h='auto'></Image>
+      </Box>
+    </HStack>
   </ChakraProvider>
-)
+);
