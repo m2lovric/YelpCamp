@@ -17,7 +17,7 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   return (
-    <Container maxW='8xl'>
+    <Container maxW='7xl'>
       <Flex alignItems='center' marginTop={4}>
         <Image src={logo} marginRight={12} paddingBottom={1}></Image>
         <Link to='/' style={{ textDecoration: 'none' }}>

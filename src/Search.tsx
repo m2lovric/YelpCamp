@@ -6,18 +6,22 @@ import {
   HStack,
   Button,
   VStack,
+  Image,
+  Flex,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import Layout from './Layout';
 import { db } from './firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, DocumentData, onSnapshot } from 'firebase/firestore';
 
 const Search = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState<DocumentData[]>([]);
   useEffect(() => {
     onSnapshot(collection(db, 'campgrounds'), (snap) => {
       snap.docs.map((el) => {
         console.log(el.data());
+        const newData = el.data();
+        setData((oldArr) => [...oldArr, newData]);
       });
     });
   }, []);
@@ -53,6 +57,37 @@ const Search = () => {
           </VStack>
         </Box>
       </Box>
+
+      <Flex marginTop={8} justifyContent='space-between' flexFlow='wrap'>
+        {data &&
+          data.map((el) => {
+            return (
+              <Box
+                w='30%'
+                key={el.name}
+                border='1px'
+                borderColor='gray.200'
+                borderRadius={4}
+                marginBottom={4}
+              >
+                <VStack alignItems='flex-start' padding={4}>
+                  <Image
+                    src={el.imageUrl}
+                    width='100%'
+                    height='200px'
+                    objectFit='cover'
+                    borderRadius={4}
+                  ></Image>
+                  <Heading as='h4' size='lg' paddingTop={3}>
+                    {el.name}
+                  </Heading>
+                  <Text paddingBottom={3}>{el.shortDesc}</Text>
+                  <Button w='100%'>View Campground</Button>
+                </VStack>
+              </Box>
+            );
+          })}
+      </Flex>
     </Layout>
   );
 };
