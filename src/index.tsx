@@ -5,6 +5,7 @@ import Search from './Search';
 import { ChakraProvider } from '@chakra-ui/react';
 import lightTheme from './theme';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './Login';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -12,6 +13,7 @@ ReactDOM.render(
       <Routes>
         <Route path='/' element={<App />} />
         <Route path='/search' element={<Search />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </ChakraProvider>
   </BrowserRouter>,

@@ -36,7 +36,7 @@ const Search = () => {
           marginTop={10}
           backgroundColor='blackAlpha.100'
         >
-          <VStack w='30%' alignItems='flex-start'>
+          <VStack w='35%' alignItems='flex-start'>
             <Heading>Welcome to YelpCamp!</Heading>
             <Text paddingBottom={4}>
               View our hand-picked campgrounds from all over the world, or add

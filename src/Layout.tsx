@@ -49,6 +49,9 @@ const Layout = ({ children }: Props) => {
         </Button>
       </Flex>
       {children}
+      <Flex alignItems='flex-start' paddingBottom={10}>
+        <Image src={logo} marginTop={10}></Image>
+      </Flex>
     </Container>
   );
 };
