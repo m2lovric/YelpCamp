@@ -7,9 +7,21 @@ import {
   Button,
   VStack,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from './Layout';
+import { db } from './firebase';
+import { collection, onSnapshot } from 'firebase/firestore';
+
 const Search = () => {
+  const [data, setData] = useState();
+  useEffect(() => {
+    onSnapshot(collection(db, 'campgrounds'), (snap) => {
+      snap.docs.map((el) => {
+        console.log(el.data());
+      });
+    });
+  }, []);
+
   return (
     <Layout>
       <Box>
