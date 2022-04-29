@@ -19,15 +19,21 @@ const Layout = ({ children }: Props) => {
   return (
     <Container maxW='8xl'>
       <Flex alignItems='center' marginTop={4}>
-        <Image src={logo} marginRight={12}></Image>
+        <Image src={logo} marginRight={12} paddingBottom={1}></Image>
         <Link to='/' style={{ textDecoration: 'none' }}>
-          <Heading as='h4' size='md' color='black'>
+          <Heading as='h4' size='md' color='blackAlpha.700'>
             Home
           </Heading>
         </Link>
         <Spacer />
         <Link to='/login' style={{ textDecoration: 'none' }}>
-          <Text size='lg' fontWeight={600} marginRight={6} color='black'>
+          <Text
+            size='lg'
+            fontWeight={400}
+            fontSize={18}
+            marginRight={6}
+            color='blackAlpha.700'
+          >
             Login
           </Text>
         </Link>
