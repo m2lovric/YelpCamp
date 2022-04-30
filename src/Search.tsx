@@ -16,15 +16,21 @@ import { collection, DocumentData, onSnapshot } from 'firebase/firestore';
 
 const Search = () => {
   const [data, setData] = useState<DocumentData[]>([]);
+  const [filteredData, setFilteredData] = useState<DocumentData[]>([]);
+  const [search, setSearch] = useState('');
   useEffect(() => {
     onSnapshot(collection(db, 'campgrounds'), (snap) => {
       snap.docs.map((el) => {
-        console.log(el.data());
         const newData = el.data();
         setData((oldArr) => [...oldArr, newData]);
       });
     });
   }, []);
+
+  const handleFilterData = () => {
+    const filData = data.filter((el) => el.name.toLowerCase().includes(search));
+    setFilteredData([...filData]);
+  };
 
   return (
     <Layout>
@@ -43,7 +49,15 @@ const Search = () => {
               your own.
             </Text>
             <HStack w='100%' paddingBottom={4}>
-              <Input placeholder='Search for camps' backgroundColor='white' />
+              <Input
+                placeholder='Search for camps'
+                backgroundColor='white'
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value.toLowerCase());
+                  handleFilterData();
+                }}
+              />
               <Button
                 backgroundColor='blackAlpha.900'
                 color='white'
@@ -60,11 +74,11 @@ const Search = () => {
 
       <Flex marginTop={8} justifyContent='space-between' flexFlow='wrap'>
         {data &&
-          data.map((el) => {
+          (search ? filteredData : data).map((el) => {
             return (
               <Box
                 w='30%'
-                key={el.name}
+                key={el.id}
                 border='1px'
                 borderColor='gray.200'
                 borderRadius={4}

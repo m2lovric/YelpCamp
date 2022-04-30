@@ -17,7 +17,7 @@ import check from './assets/Checkmark.svg';
 import { Link } from 'react-router-dom';
 
 export const App = () => (
-  <HStack overflowY='hidden'>
+  <HStack h='100vh'>
     <Box w='55%' h='100vh' p='10%'>
       <Box w='80%'>
         <Image src={logo} alt='logo' marginBottom={20}></Image>
