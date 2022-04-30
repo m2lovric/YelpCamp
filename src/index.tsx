@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import Search from './Search';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -8,7 +8,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(
   <BrowserRouter>
     <ChakraProvider theme={lightTheme}>
       <Routes>
@@ -18,6 +20,5 @@ ReactDOM.render(
         <Route path='/signup' element={<Signup />} />
       </Routes>
     </ChakraProvider>
-  </BrowserRouter>,
-  document.getElementById('root')
+  </BrowserRouter>
 );
