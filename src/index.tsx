@@ -7,6 +7,7 @@ import lightTheme from './theme';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
+import Campground from './Campground';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -18,6 +19,7 @@ root.render(
         <Route path='/search' element={<Search />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/campground/:id' element={<Campground />} />
       </Routes>
     </ChakraProvider>
   </BrowserRouter>

@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from './Layout';
 import { db } from './firebase';
 import { collection, DocumentData, onSnapshot } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 const Search = () => {
   const [data, setData] = useState<DocumentData[]>([]);
@@ -96,7 +97,9 @@ const Search = () => {
                     {el.name}
                   </Heading>
                   <Text paddingBottom={3}>{el.shortDesc}</Text>
-                  <Button w='100%'>View Campground</Button>
+                  <Link to={`/campground/${el.id}`}>
+                    <Button w='100%'>View Campground</Button>
+                  </Link>
                 </VStack>
               </Box>
             );
