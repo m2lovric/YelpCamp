@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import logo from './assets/Logo.svg';
 import user from './assets/User Testimonial.svg';
 
-const Login = () => {
+const Signup = () => {
   return (
     <HStack>
       <Flex w='55%' h='100vh' direction='column' paddingX='12%'>
@@ -62,14 +62,14 @@ const Login = () => {
               h={16}
               w='100%'
             >
-              Login
+              Create an account
             </Button>
           </FormControl>
           <HStack w='100%'>
-            <Text>Not a user yet?</Text>
-            <Link to='/signup'>
+            <Text>Already a user?</Text>
+            <Link to='/login'>
               <Text color='blue.400' fontWeight={600}>
-                Create an account
+                Sign In
               </Text>
             </Link>
           </HStack>
@@ -103,4 +103,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
