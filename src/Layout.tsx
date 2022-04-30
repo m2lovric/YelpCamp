@@ -37,16 +37,18 @@ const Layout = ({ children }: Props) => {
             Login
           </Text>
         </Link>
-        <Button
-          backgroundColor='blackAlpha.900'
-          color='white'
-          colorScheme='blackAlpha'
-          variant='solid'
-          paddingY={6}
-          marginY={2}
-        >
-          Create an account
-        </Button>
+        <Link to='/signup'>
+          <Button
+            backgroundColor='blackAlpha.900'
+            color='white'
+            colorScheme='blackAlpha'
+            variant='solid'
+            paddingY={6}
+            marginY={2}
+          >
+            Create an account
+          </Button>
+        </Link>
       </Flex>
       {children}
       <Flex alignItems='flex-start' paddingBottom={10}>
