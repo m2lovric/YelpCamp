@@ -6,6 +6,8 @@ import {
   VStack,
   Image,
   Text,
+  Input,
+  Button,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import Layout from './Layout';
@@ -38,23 +40,90 @@ const Campground = () => {
             <Text color='blue.400'>Back to Campgrounds</Text>
           </Link>
         </Flex>
-        <HStack>
-          <Flex w='50%'>
-            <Image src={map}></Image>
-          </Flex>
-          <VStack w='50%'>
+        <HStack justifyContent='space-between' alignItems='flex-start'>
+          <VStack
+            w='30%'
+            h='100vh'
+            justifyContent='flex-start'
+            alignItems='flex-start'
+          >
+            <Box
+              justifyContent='center'
+              marginBottom='auto'
+              alignItems='center'
+              padding='7%'
+              border='1px'
+              borderColor='blackAlpha.200'
+              borderRadius={8}
+            >
+              <Image src={map}></Image>
+            </Box>
+          </VStack>
+          <VStack w='65%'>
             {data ? (
-              <Box>
-                <Image src={data.imageUrl}></Image>
-                <HStack>
-                  <Heading>{data.name}</Heading>
+              <Box
+                w='100%'
+                padding='7%'
+                border='1px'
+                borderColor='blackAlpha.200'
+                borderRadius={8}
+              >
+                <Image
+                  src={data.imageUrl}
+                  marginBottom={8}
+                  borderRadius={6}
+                ></Image>
+                <HStack justifyContent='space-between'>
+                  <Heading as='h4' size='lg'>
+                    {data.name}
+                  </Heading>
                   <Text>{`${data.price}.00$`}</Text>
                 </HStack>
-                <Text>{data.description}</Text>
+                <Text fontWeight={300} marginTop={4}>
+                  {data.description}
+                </Text>
               </Box>
             ) : (
               ''
             )}
+            <Box
+              w='100%'
+              padding='5%'
+              border='1px'
+              borderColor='blackAlpha.200'
+              borderRadius={8}
+            >
+              <VStack>
+                {data
+                  ? 'comments' in data
+                    ? data.comments.map((el: any, i: any) => {
+                        return (
+                          <Box
+                            key={i}
+                            w='100%'
+                            marginY='16px'
+                            paddingTop={4}
+                            paddingBottom={8}
+                            borderBottom='1px'
+                            borderColor='blackAlpha.100'
+                          >
+                            <Heading as='h5' size='sm'>
+                              {el.name}
+                            </Heading>
+                            <Text fontWeight={300} size='sm'>
+                              {el.comment}
+                            </Text>
+                          </Box>
+                        );
+                      })
+                    : ''
+                  : ''}
+                <HStack w='100%'>
+                  <Input placeholder='Add comment' />
+                  <Button>Send</Button>
+                </HStack>
+              </VStack>
+            </Box>
           </VStack>
         </HStack>
       </VStack>
