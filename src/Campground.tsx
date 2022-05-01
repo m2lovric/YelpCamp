@@ -12,12 +12,13 @@ import {
 import React, { useEffect, useState } from 'react';
 import Layout from './Layout';
 import { Link, useParams } from 'react-router-dom';
-import { collection, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from './firebase';
 import map from './assets/Map.png';
+import { campground } from './interfaces';
 
 const Campground = () => {
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<campground>();
   const params = useParams();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const Campground = () => {
         console.log(params.id);
         if (el.data().id == params.id) {
           console.log(el.data());
-          setData(el.data());
+          setData(el.data() as campground);
         }
       });
     });

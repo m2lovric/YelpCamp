@@ -12,17 +12,18 @@ import {
 import React, { useEffect, useState } from 'react';
 import Layout from './Layout';
 import { db } from './firebase';
-import { collection, DocumentData, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import { campground } from './interfaces';
 
 const Search = () => {
-  const [data, setData] = useState<DocumentData[]>([]);
-  const [filteredData, setFilteredData] = useState<DocumentData[]>([]);
+  const [data, setData] = useState<campground[]>([]);
+  const [filteredData, setFilteredData] = useState<campground[]>([]);
   const [search, setSearch] = useState('');
   useEffect(() => {
     onSnapshot(collection(db, 'campgrounds'), (snap) => {
       snap.docs.map((el) => {
-        const newData = el.data();
+        const newData = el.data() as campground;
         setData((oldArr) => [...oldArr, newData]);
       });
     });
