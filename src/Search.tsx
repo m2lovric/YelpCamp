@@ -85,7 +85,7 @@ const Search = () => {
                 borderRadius={4}
                 marginBottom={4}
               >
-                <VStack alignItems='flex-start' padding={4}>
+                <VStack alignItems='flex-start' w='100%' padding={4}>
                   <Image
                     src={el.imageUrl}
                     width='100%'
@@ -97,7 +97,7 @@ const Search = () => {
                     {el.name}
                   </Heading>
                   <Text paddingBottom={3}>{el.shortDesc}</Text>
-                  <Link to={`/campground/${el.id}`}>
+                  <Link to={`/campground/${el.id}`} style={{ width: '100%' }}>
                     <Button w='100%'>View Campground</Button>
                   </Link>
                 </VStack>
