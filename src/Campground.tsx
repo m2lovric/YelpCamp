@@ -19,6 +19,7 @@ import { campground } from './interfaces';
 
 const Campground = () => {
   const [data, setData] = useState<campground>();
+  const [comment, setComment] = useState('');
   const params = useParams();
 
   useEffect(() => {
@@ -120,7 +121,11 @@ const Campground = () => {
                     : ''
                   : ''}
                 <HStack w='100%'>
-                  <Input placeholder='Add comment' />
+                  <Input
+                    placeholder='Add comment'
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  />
                   <Button>Send</Button>
                 </HStack>
               </VStack>

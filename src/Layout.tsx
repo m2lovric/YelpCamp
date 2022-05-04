@@ -8,7 +8,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from './assets/Logo.svg';
 import { auth } from './firebase';
@@ -21,14 +21,24 @@ const Layout = ({ children }: Props) => {
   const [logged, setLogged] = useState(false);
   const [user, setUser] = useState<User>();
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setLogged(true);
-      setUser(user);
-    } else {
-      setLogged(false);
-    }
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLogged(true);
+        setUser(user);
+      } else {
+        setLogged(false);
+      }
+    });
+  }, []);
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <Container maxW='7xl'>
@@ -58,7 +68,7 @@ const Layout = ({ children }: Props) => {
               variant='solid'
               paddingY={6}
               marginY={2}
-              onClick={() => signOut(auth)}
+              onClick={() => handleLogout()}
             >
               Logout
             </Button>
