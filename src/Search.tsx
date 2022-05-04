@@ -79,7 +79,7 @@ const Search = () => {
           (search ? filteredData : data).map((el) => {
             return (
               <Box
-                w='30%'
+                w={['100%', '30%']}
                 key={el.id}
                 border='1px'
                 borderColor='gray.200'

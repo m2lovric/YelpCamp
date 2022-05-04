@@ -13,12 +13,28 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from './assets/Logo.svg';
 import user from './assets/User Testimonial.svg';
+import { auth } from './firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const [userData, setUserData] = useState({ email: '', password: '' });
+
+  const navigation = useNavigate();
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, userData.email, userData.password)
+      .then((user) => {
+        setUserData({ email: '', password: '' });
+        navigation('../search', { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <HStack>
       <Flex w='55%' h='100vh' direction='column' paddingX='12%'>
@@ -43,6 +59,13 @@ const Login = () => {
               placeholder='johndoe@mail.com'
               h={16}
               marginBottom={6}
+              value={userData.email}
+              onChange={(e) => {
+                setUserData((prevState) => ({
+                  ...prevState,
+                  email: e.target.value,
+                }));
+              }}
             />
             <FormLabel htmlFor='password'>Password</FormLabel>
             <Input
@@ -51,6 +74,13 @@ const Login = () => {
               placeholder='Enter Your Password'
               h={16}
               marginBottom={6}
+              value={userData.password}
+              onChange={(e) => {
+                setUserData((prevState) => ({
+                  ...prevState,
+                  password: e.target.value,
+                }));
+              }}
             />
             <Button
               backgroundColor='blackAlpha.900'
@@ -61,6 +91,7 @@ const Login = () => {
               marginY={2}
               h={16}
               w='100%'
+              onClick={() => handleLogin()}
             >
               Login
             </Button>

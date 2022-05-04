@@ -13,12 +13,25 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from '@chakra-ui/react';
-import React from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from './assets/Logo.svg';
 import user from './assets/User Testimonial.svg';
+import { auth } from './firebase';
 
 const Signup = () => {
+  const [userData, setUserData] = useState({ email: '', password: '' });
+  const handleSubmit = () => {
+    createUserWithEmailAndPassword(auth, userData.email, userData.password)
+      .then((user) => {
+        console.log(user.user);
+        setUserData({ email: '', password: '' });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <HStack>
       <Flex w='55%' h='100vh' direction='column' paddingX='12%'>
@@ -43,6 +56,13 @@ const Signup = () => {
               placeholder='johndoe@mail.com'
               h={16}
               marginBottom={6}
+              value={userData.email}
+              onChange={(e) => {
+                setUserData((prevState) => ({
+                  ...prevState,
+                  email: e.target.value,
+                }));
+              }}
             />
             <FormLabel htmlFor='password'>Password</FormLabel>
             <Input
@@ -51,6 +71,13 @@ const Signup = () => {
               placeholder='Enter Your Password'
               h={16}
               marginBottom={6}
+              value={userData.password}
+              onChange={(e) => {
+                setUserData((prevState) => ({
+                  ...prevState,
+                  password: e.target.value,
+                }));
+              }}
             />
             <Button
               backgroundColor='blackAlpha.900'
@@ -61,6 +88,7 @@ const Signup = () => {
               marginY={2}
               h={16}
               w='100%'
+              onClick={() => handleSubmit()}
             >
               Create an account
             </Button>
