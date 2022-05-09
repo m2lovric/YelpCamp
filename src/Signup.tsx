@@ -97,7 +97,7 @@ const Signup = () => {
             <Text>Already a user?</Text>
             <Link to='/login'>
               <Text color='blue.400' fontWeight={600}>
-                Sign In
+                Login
               </Text>
             </Link>
           </HStack>
