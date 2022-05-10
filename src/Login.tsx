@@ -29,7 +29,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, userData.email, userData.password)
       .then((user) => {
         setUserData({ email: '', password: '' });
-        navigation('../search', { replace: true });
+        navigation('../main', { replace: true });
       })
       .catch((err) => {
         console.log(err);

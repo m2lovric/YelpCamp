@@ -16,7 +16,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { campground } from './interfaces';
 
-const Search = () => {
+const Main = () => {
   const [data, setData] = useState<campground[]>([]);
   const [filteredData, setFilteredData] = useState<campground[]>([]);
   const [search, setSearch] = useState('');
@@ -69,7 +69,9 @@ const Search = () => {
                 Search
               </Button>
             </HStack>
-            <Text>Or add your own campground</Text>
+            <Link to='/addcampground'>
+              <Text>Or add your own campground</Text>
+            </Link>
           </VStack>
         </Box>
       </Box>
@@ -110,4 +112,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Main;

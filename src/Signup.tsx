@@ -37,7 +37,7 @@ const Signup = () => {
       <Flex w='55%' h='100vh' direction='column' paddingX='12%'>
         <Flex marginTop={16} justifyContent='space-between'>
           <Image src={logo}></Image>
-          <Link to='/search'>
+          <Link to='/main'>
             <Text color='blackAlpha.700'>Back to campgrounds</Text>
           </Link>
         </Flex>

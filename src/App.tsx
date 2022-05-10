@@ -48,7 +48,7 @@ export const App = () => (
             <Text>See locations for all camps.</Text>
           </HStack>
         </VStack>
-        <Link to='/search'>
+        <Link to='/main'>
           <Button
             backgroundColor='blackAlpha.900'
             color='white'

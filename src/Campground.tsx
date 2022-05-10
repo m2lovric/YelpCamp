@@ -70,7 +70,7 @@ const Campground = () => {
     <Layout>
       <VStack>
         <Flex justifyContent='flex-end' w='100%' marginY={10}>
-          <Link to='/search'>
+          <Link to='/main'>
             <Text color='blue.400'>Back to Campgrounds</Text>
           </Link>
         </Flex>
