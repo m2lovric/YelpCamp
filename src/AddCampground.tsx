@@ -1,6 +1,6 @@
 import {
   Box,
-  Text,
+  Textarea,
   Flex,
   Heading,
   VStack,
@@ -11,8 +11,35 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import Layout from './Layout';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from './firebase';
+import { useNavigate } from 'react-router-dom';
 
 const AddCampground = () => {
+  const navigation = useNavigate();
+  const [campground, setCampground] = useState({
+    name: '',
+    price: 0,
+    imageUrl: '',
+    shortDesc: '',
+    description: '',
+  });
+
+  const onSubmit = async () => {
+    await addDoc(collection(db, 'campgrounds'), {
+      ...campground,
+    }).then((res) => {
+      setCampground({
+        name: '',
+        price: 0,
+        imageUrl: '',
+        shortDesc: '',
+        description: '',
+      });
+      navigation('../main', { replace: true });
+    });
+  };
+
   return (
     <Layout>
       <Flex
@@ -35,6 +62,10 @@ const AddCampground = () => {
               h={16}
               marginBottom={6}
               backgroundColor='blackAlpha.100'
+              value={campground.name}
+              onChange={(e) =>
+                setCampground({ ...campground, name: e.target.value })
+              }
             />
             <FormLabel htmlFor='price'>Price</FormLabel>
             <Input
@@ -44,6 +75,13 @@ const AddCampground = () => {
               h={16}
               marginBottom={6}
               backgroundColor='blackAlpha.100'
+              value={campground.price}
+              onChange={(e) =>
+                setCampground({
+                  ...campground,
+                  price: parseInt(e.target.value),
+                })
+              }
             />
             <FormLabel htmlFor='image'>Image URL</FormLabel>
             <Input
@@ -53,15 +91,35 @@ const AddCampground = () => {
               h={16}
               marginBottom={6}
               backgroundColor='blackAlpha.100'
+              value={campground.imageUrl}
+              onChange={(e) =>
+                setCampground({ ...campground, imageUrl: e.target.value })
+              }
             />
-            <FormLabel htmlFor='description'>Description</FormLabel>
+            <FormLabel htmlFor='shortDesc'>Short Description</FormLabel>
             <Input
-              id='image'
+              id='shortDesc'
               type='text'
-              placeholder='Description'
+              placeholder='Short Description'
               h={16}
               marginBottom={6}
               backgroundColor='blackAlpha.100'
+              value={campground.shortDesc}
+              onChange={(e) =>
+                setCampground({ ...campground, shortDesc: e.target.value })
+              }
+            />
+            <FormLabel htmlFor='description'>Description</FormLabel>
+            <Textarea
+              id='description'
+              placeholder='Description'
+              h={36}
+              marginBottom={6}
+              backgroundColor='blackAlpha.100'
+              value={campground.description}
+              onChange={(e) =>
+                setCampground({ ...campground, description: e.target.value })
+              }
             />
             <Button
               backgroundColor='blackAlpha.900'
@@ -72,6 +130,7 @@ const AddCampground = () => {
               marginY={2}
               h={16}
               w='100%'
+              onClick={() => onSubmit()}
             >
               Add Campground
             </Button>
