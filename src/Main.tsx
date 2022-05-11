@@ -11,21 +11,32 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import Layout from './Layout';
-import { db } from './firebase';
+import { auth, db } from './firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { campground } from './interfaces';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const Main = () => {
   const [data, setData] = useState<campground[]>([]);
   const [filteredData, setFilteredData] = useState<campground[]>([]);
   const [search, setSearch] = useState('');
+  const [logged, setLogged] = useState(false);
+
   useEffect(() => {
     onSnapshot(collection(db, 'campgrounds'), (snap) => {
       snap.docs.map((el) => {
         const newData = el.data() as campground;
         setData((oldArr) => [...oldArr, newData]);
       });
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLogged(true);
+      } else {
+        setLogged(false);
+      }
     });
   }, []);
 
@@ -69,9 +80,29 @@ const Main = () => {
                 Search
               </Button>
             </HStack>
-            <Link to='/addcampground'>
-              <Text>Or add your own campground</Text>
-            </Link>
+            {!logged ? (
+              <HStack>
+                <Link to='/login' style={{ textDecoration: 'none' }}>
+                  <Button
+                    backgroundColor='blackAlpha.900'
+                    color='white'
+                    colorScheme='blackAlpha'
+                    variant='solid'
+                    marginY={2}
+                    h={10}
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Text>to add campground.</Text>
+              </HStack>
+            ) : (
+              <>
+                <Link to='/addcampground'>
+                  <Text color='blue.400'>Or add your own campground</Text>
+                </Link>
+              </>
+            )}
           </VStack>
         </Box>
       </Box>
@@ -88,7 +119,7 @@ const Main = () => {
                 borderRadius={4}
                 marginBottom={4}
               >
-                <VStack alignItems='flex-start' w='100%' padding={4}>
+                <VStack alignItems='flex-start' w='100%' h='100%' padding={4}>
                   <Image
                     src={el.imageUrl}
                     width='100%'
@@ -100,7 +131,10 @@ const Main = () => {
                     {el.name}
                   </Heading>
                   <Text paddingBottom={3}>{el.shortDesc}</Text>
-                  <Link to={`/campground/${el.id}`} style={{ width: '100%' }}>
+                  <Link
+                    to={`/campground/${el.id}`}
+                    style={{ width: '100%', marginTop: 'auto' }}
+                  >
                     <Button w='100%'>View Campground</Button>
                   </Link>
                 </VStack>
